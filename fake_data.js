@@ -7,12 +7,12 @@ function get_day_summaries(year,month){
   var i = 0;
 
   for (var dt = new Date(firstDay); dt <= lastDay; dt.setDate(dt.getDate() + 1)) {
-      var tomorrow = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate() + 1);
+      var end_date = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate(), dt.getHours() + 1, dt.getMinutes());
 
       result.push({
                     "title": 'free 30',
                     "start": new Date(dt),
-                    "end": tomorrow,
+                    "end": end_date,
                     "id": i
                     });
       i++;

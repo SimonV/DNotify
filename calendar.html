@@ -20,10 +20,15 @@
 
       },
       dayClick: function(date, jsEvent, view) {
-        //select date
-        $('#calendar').fullCalendar('goToDate',date);
-        //go to day view
-        $('#calendar').fullCalendar( 'changeView', 'agendaDay' );
+
+        if ($('#calendar').fullCalendar( 'getView').name.localeCompare('month') == 0){
+          //select date
+          $('#calendar').fullCalendar('goToDate',date);
+          //go to day view
+          $('#calendar').fullCalendar( 'changeView', 'agendaDay' );
+        }else{
+          alert('add appt');
+        }
       },
       header: {
         left: 'prev,next today',
