@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  appointment_id: 
+  send_time: 2016-03-21 12:54:55
+  status: MyString
+  status_time: 2016-03-21 12:54:55
+  text: MyString
+  response_text: MyString
+  response_time: 2016-03-21 12:54:55
+
+two:
+  appointment_id: 
+  send_time: 2016-03-21 12:54:55
+  status: MyString
+  status_time: 2016-03-21 12:54:55
+  text: MyString
+  response_text: MyString
+  response_time: 2016-03-21 12:54:55
