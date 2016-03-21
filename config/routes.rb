@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   get 'customers/list'
 
-  get 'appointments/get_appt_summary'
+  post 'appointments/get_appt_summary'
 
   get 'appointments/get_free_slots'
 

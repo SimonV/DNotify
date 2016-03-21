@@ -38,10 +38,17 @@
       defaultDate: '2016-01-12',
       editable: true,
       eventLimit: false, // allow "more" link when too many events
+      events: {
+        url: 'appointments/get_appt_summary',
+        type: 'POST',
+
+      }
+      /*
       events: function (start, end, timezone, callback) {
         var events = get_day_summaries(start.year(), start.month() +1 );
         callback(events);
       }
+      */
     });
   });
 
