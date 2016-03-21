@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'accounts/login'
+
+  get 'accounts/logout'
+
+  get 'accounts/activate'
+
+  get 'accounts/reset_password'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
