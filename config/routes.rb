@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'doctors/activate'
+
   get 'accounts/login'
 
   get 'accounts/logout'
