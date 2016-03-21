@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  doctor_id: 
+  customer_id: 
+  start_time: 2016-03-21 12:46:03
+  dutation: 1
+  description: MyString
+  status: MyString
+  status_change_time: 2016-03-21 12:46:03
+
+two:
+  doctor_id: 
+  customer_id: 
+  start_time: 2016-03-21 12:46:03
+  dutation: 1
+  description: MyString
+  status: MyString
+  status_change_time: 2016-03-21 12:46:03
