@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'reminders/new'
+
+  get 'reminders/create'
+
+  get 'reminders/edit'
+
+  get 'reminders/delete'
+
   get 'customers/new'
 
   get 'customers/create'
