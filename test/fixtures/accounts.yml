@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: MyString
+  hashed_passoword: MyString
+  full_name: MyString
+  phone: MyString
+  email: MyString
+  billing_plan_type: MyString
+  billing_plan_start_time: 2016-03-21 12:49:23
+  is_active: false
+
+two:
+  username: MyString
+  hashed_passoword: MyString
+  full_name: MyString
+  phone: MyString
+  email: MyString
+  billing_plan_type: MyString
+  billing_plan_start_time: 2016-03-21 12:49:23
+  is_active: false
