@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get 'customers/new'
+
+  get 'customers/create'
+
+  get 'customers/activate'
+
+  get 'customers/update'
+
+  get 'customers/list'
+
   get 'appointments/get_appt_summary'
 
   get 'appointments/get_free_slots'
