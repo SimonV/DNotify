@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'appointments/get_appt_summary'
+
+  get 'appointments/get_free_slots'
+
+  get 'appointments/list_appts'
+
   get 'doctors/activate'
 
   get 'accounts/login'
