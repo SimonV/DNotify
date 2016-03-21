@@ -14,20 +14,23 @@
 
     $('#calendar').fullCalendar({
       eventClick: function(calEvent, jsEvent, view) {
-        $('#calendar').fullCalendar('goToDate',calEvent.start.toDate());
 
+        $('#calendar').fullCalendar('goToDate',calEvent.start.toDate());
         $('#calendar').fullCalendar( 'changeView', 'agendaDay' );
+        $('#calendar').fullCalendar( 'refetchEvents' );
 
       },
       dayClick: function(date, jsEvent, view) {
 
         if ($('#calendar').fullCalendar( 'getView').name.localeCompare('month') == 0){
-          //select date
+
           $('#calendar').fullCalendar('goToDate',date);
-          //go to day view
           $('#calendar').fullCalendar( 'changeView', 'agendaDay' );
+          $('#calendar').fullCalendar( 'refetchEvents' );
+
         }else{
-          alert('add appt');
+          //TODO add appointment
+          //alert('add appt');
         }
       },
       header: {
@@ -36,19 +39,26 @@
         right: 'month,agendaDay'
       },
       defaultDate: '2016-01-12',
-      editable: true,
+      editable: false,
       eventLimit: false, // allow "more" link when too many events
-      events: {
-        url: 'appointments/get_appt_summary',
-        type: 'POST',
+      events: function(start, end, timezone, callback) {
+          var formData = {'start': start.toDate(),'end': end.toDate()};
 
+          if ($('#calendar').fullCalendar( 'getView').name.localeCompare('month') == 0){
+            $.ajax({
+                url: 'appointments/get_appt_summary',
+                type: "POST",
+                data: formData,
+                success: function(doc) {
+                    var events = doc;
+                    callback(events);
+                }
+            });
+          }else{
+            // TODO fetch events for a single day
+            //alert("ddd");
+          }
       }
-      /*
-      events: function (start, end, timezone, callback) {
-        var events = get_day_summaries(start.year(), start.month() +1 );
-        callback(events);
-      }
-      */
     });
   });
 
