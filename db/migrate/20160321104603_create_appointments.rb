@@ -4,7 +4,7 @@ class CreateAppointments < ActiveRecord::Migration
       t.references :doctor, index: true, foreign_key: true
       t.references :customer, index: true, foreign_key: true
       t.datetime :start_time
-      t.integer :dutation
+      t.integer :duration
       t.string :description
       t.string :status
       t.datetime :status_change_time

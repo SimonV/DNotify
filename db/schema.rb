@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20160321105455) do
     t.integer  "doctor_id"
     t.integer  "customer_id"
     t.datetime "start_time"
-    t.integer  "dutation"
+    t.integer  "duration"
     t.string   "description"
     t.string   "status"
     t.datetime "status_change_time"
