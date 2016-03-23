@@ -25,6 +25,16 @@ class AppointmentsController < ApplicationController
   end
 
   def list_appts
+    start = Date.parse(params[:start])
+
+    resp = [
+        {title: 'test1111',
+          start: start.at_beginning_of_day + 3.hours,
+          end: start.at_beginning_of_day + 4.hours,
+          id: 11,
+          color: '#FFAACC'}]
+    render json: resp
+
     #TODO render events from model
   end
 end

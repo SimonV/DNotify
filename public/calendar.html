@@ -8,6 +8,7 @@
 <script src='../js/fullcalendar-2.6.1/lib/jquery.min.js'></script>
 <script src='../js/fullcalendar-2.6.1/fullcalendar.min.js'></script>
 <script src="../js/fake_data.js"></script>
+<link href='../css/calendar.css' rel='stylesheet' />
 <script>
 
   $(document).ready(function() {
@@ -55,6 +56,15 @@
                 }
             });
           }else{
+            $.ajax({
+                url: 'appointments/list_appts',
+                type: "POST",
+                data: formData,
+                success: function(doc) {
+                    var events = doc;
+                    callback(events);
+                }
+            });
             // TODO fetch events for a single day
             //alert("ddd");
           }

@@ -19,9 +19,9 @@ Rails.application.routes.draw do
 
   post 'appointments/get_appt_summary'
 
-  get 'appointments/get_free_slots'
+  post 'appointments/get_free_slots'
 
-  get 'appointments/list_appts'
+  post 'appointments/list_appts'
 
   get 'doctors/activate'
 
