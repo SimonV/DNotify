@@ -76,6 +76,7 @@ class AppointmentsController < ApplicationController
         {
           title: appt.description,
           start: appt.start_time,
+          id: appt.id,
           end: appt.start_time + appt.duration.minutes
         }
     end
