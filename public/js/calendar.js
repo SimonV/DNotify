@@ -1,5 +1,32 @@
 
 $(document).ready(function() {
+  var dialog
+  dialog = $( "#appointment_form" ).dialog({
+    autoOpen: false,
+    height: 600,
+    width: 400,
+    modal: true,
+    buttons: {
+      "Create appointment": null,
+      /*
+      Cancel: function() {
+        dialog.dialog( "close" );
+      }
+      */
+    },
+    close: function() {
+      form[ 0 ].reset();
+    }
+  });
+
+  form = dialog.find( "form" ).on( "submit", function( event ) {
+    event.preventDefault();
+    //addUser();
+  });
+
+  //$("#appt_close").click(function() {
+  //  $("#appointment_form").css("display", "none");
+  //});
 
   $('#calendar').fullCalendar({
     eventClick: function(calEvent, jsEvent, view) {
@@ -21,6 +48,8 @@ $(document).ready(function() {
       }else{
         //TODO add appointment
         //alert('add appt');
+        //$("#appointment_form").css("display", "block");
+        $( "#appointment_form" ).dialog( "open" );
       }
     },
     header: {
