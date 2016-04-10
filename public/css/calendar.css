@@ -14,4 +14,32 @@ body {
   margin: 0 auto;
 }
 
+/* form styling */
+#appointment .form_row{
+	display: inline-block;
+}
+
+#appointment label{
+float: left;
+width: 120px;
+font-weight: bold;
+}
+
+#appointment input{
+width: 180px;
+margin-bottom: 5px;
+}
+
+#appointment textarea{
+width: 250px;
+height: 150px;
+margin-bottom: 5px;
+}
+
+#appointment #submitbutton{
+margin-left: 120px;
+margin-top: 5px;
+width: 90px;
+}
+
 /*ijiji*/
