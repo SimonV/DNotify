@@ -85,6 +85,7 @@ class AppointmentsController < ApplicationController
   end
 
   def create
+    render json: nil
   end
 
   private
