@@ -84,6 +84,9 @@ class AppointmentsController < ApplicationController
     render json: resp
   end
 
+  def create
+  end
+
   private
   def get_color_for_count(count)
     case (count)
