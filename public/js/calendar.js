@@ -17,10 +17,6 @@ $(document).ready(function() {
     }
   });
 
-    form = dialog.find("form").on("submit", function(event){
-		event.preventDefault();
-	});
-
 	function createAppointment(){
 		var formData = {
 			'appt_date': $('#appt_date').val(),
