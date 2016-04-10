@@ -17,13 +17,10 @@ $(document).ready(function() {
     }
   });
 
-	//do we even need this?
-  form = dialog.find( "form" ).on( "submit", function( event ) {
-    event.preventDefault();
-    //addUser();
-  });
+    form = dialog.find("form").on("submit", function(event){
+		event.preventDefault();
+	});
 
-	//button pressed
 	function createAppointment(){
 		var formData = {
 			'appt_date': $('#appt_date').val(),
@@ -35,24 +32,18 @@ $(document).ready(function() {
 			'appt_customer_phone': $('#appt_customer_phone').val(),
 			'appt_customer_email': $('#appt_customer_email').val()
 			};
-			//alert for checking values
-			//alert(formData.appt_date +" "+ formData.appt_time +" "+formData.appt_duration +" "+formData.appt_description +" "+formData.appt_customer_name +" "+formData.appt_customer_last_name +" "+formData.appt_customer_phone +" "+formData.appt_customer_email);
 			
 		$.ajax({
               url: 'appointments/create',
               type: "POST",
               data: formData,
-              success: function(doc) {
-                  var events = doc;
-                  callback(events);
+              success: function() {
+				  
               }
           });
+		  $( "#appointment_form" ).dialog( "close" );
 	}
-
-  //$("#appt_close").click(function() {
-  //  $("#appointment_form").css("display", "none");
-  //});
-
+	
   $('#calendar').fullCalendar({
     eventClick: function(calEvent, jsEvent, view) {
 
@@ -71,13 +62,10 @@ $(document).ready(function() {
 
 
       }else{
-        //TODO add appointment
-        //alert('add appt');
-        //$("#appointment_form").css("display", "block");
 
-	   	$('#appt_date').val(date.format("YYYY-MM-DD"));
-		$('#appt_time').val(date.format("hh:mm"));
-		//$('#appt_time').val(date.format("hh:mm"));
+        $('#appt_date').val(date.format("YYYY-MM-DD"));
+        $('#appt_time').val(date.format("hh:mm"));
+        $('#appt_duration').val(30);
         $( "#appointment_form" ).dialog( "open" );
       }
     },

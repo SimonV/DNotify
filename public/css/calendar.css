@@ -15,8 +15,10 @@ body {
 }
 
 /* form styling */
+
 #appointment .form_row{
 	display: inline-block;
+
 }
 
 #appointment label{
@@ -41,5 +43,3 @@ margin-left: 120px;
 margin-top: 5px;
 width: 90px;
 }
-
-/*ijiji*/
