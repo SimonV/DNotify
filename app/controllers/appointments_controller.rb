@@ -88,6 +88,23 @@ class AppointmentsController < ApplicationController
     render json: nil
   end
 
+  def show
+
+    json = '{ "id": 123,
+              "appt_time": "2016-04-14T06:56:08.324Z",
+              "appt_duration": "30",
+              "appt_description": "sadfas",
+              "appt_customer_name": "",
+              "appt_customer_last_name": "",
+              "appt_customer_phone": "",
+              "appt_customer_email": ""}'
+    render json: json
+  end
+
+  def update
+    render json: nil
+  end
+
   private
   def get_color_for_count(count)
     case (count)

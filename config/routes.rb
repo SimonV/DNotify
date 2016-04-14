@@ -18,12 +18,11 @@ Rails.application.routes.draw do
   get 'customers/list'
 
   post 'appointments/get_monthly_summaries'
-
   post 'appointments/get_daily_free_slots'
-
+  post 'appointments/show'
   post 'appointments/get_daily'
-
   post 'appointments/create'
+  post 'appointments/update'
 
   get 'doctors/activate'
 
