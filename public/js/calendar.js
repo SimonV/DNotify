@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-  var dialog
+  var dialog;
   dialog = $( "#appointment_form" ).dialog({
     autoOpen: false,
     height: 600,
@@ -13,22 +13,24 @@ $(document).ready(function() {
       }
     }],
     close: function() {
-      form[ 0 ].reset();
+      $( "#appointment_form" ).dialog("close");
     }
   });
 
 	function createAppointment(){
-		var formData = {
-			'appt_date': $('#appt_date').val(),
-			'appt_time': $('#appt_time').val(),
+		
+		var formData = 
+        {
+			
+			'appt_Date' : new Date($('#appt_date').val() + ' ' + $('#appt_time').val()),
 			'appt_duration': $('#appt_duration').val(),
 			'appt_description': $('#appt_description').val(),
 			'appt_customer_name': $('#appt_customer_name').val(),
 			'appt_customer_last_name': $('#appt_customer_last_name').val(),
 			'appt_customer_phone': $('#appt_customer_phone').val(),
 			'appt_customer_email': $('#appt_customer_email').val()
-			};
-			
+			};	
+	
 		$.ajax({
               url: 'appointments/create',
               type: "POST",
@@ -62,6 +64,8 @@ $(document).ready(function() {
         $('#appt_date').val(date.format("YYYY-MM-DD"));
         $('#appt_time').val(date.format("hh:mm"));
         $('#appt_duration').val(30);
+		
+		
         $( "#appointment_form" ).dialog( "open" );
       }
     },
