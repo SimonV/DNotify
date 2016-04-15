@@ -36,6 +36,9 @@ class AppointmentsController < ApplicationController
       latest_time = apt.start_time
 
     end
+
+    resp.push(*build_day_summary(earliest_time, latest_time, count))
+
     render json: resp
   end
 
