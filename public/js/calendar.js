@@ -13,14 +13,25 @@ $(document).ready(function() {
       }
     }],
     close: function() {
-      $( "#appointment_form" ).dialog("close");
+      closeDialog();
     }
   });
+	
+	function closeDialog(){
+		$( "#appointment_form" ).dialog( "close" );
+		$('#appt_date').val('');
+		$('#appt_time').val('');
+		$('#appt_duration').val('');
+		$('#appt_description').val('');
+		$('#appt_customer_name').val('');
+		$('#appt_customer_last_name').val('');
+		$('#appt_customer_phone').val('');
+		$('#appt_customer_email').val('');
+	}
 
 	function createAppointment(){
-		
 		var formData = 
-        {
+		{
 			'appt_date' : new Date($('#appt_date').val() + ' ' + $('#appt_time').val()),
 			'appt_duration': $('#appt_duration').val(),
 			'appt_description': $('#appt_description').val(),
@@ -28,45 +39,40 @@ $(document).ready(function() {
 			'appt_customer_last_name': $('#appt_customer_last_name').val(),
 			'appt_customer_phone': $('#appt_customer_phone').val(),
 			'appt_customer_email': $('#appt_customer_email').val()
-			};	
-	
+		};	
 		$.ajax({
-              url: 'appointments/create',
-              type: "POST",
-              data: formData,
-              success: function() {
-				  
-              }
-          });
-		  $( "#appointment_form" ).dialog( "close" );
-		  $('#calendar').fullCalendar('refetchEvents');
-		  
+			url: 'appointments/create',
+			type: "POST",
+			data: formData,
+			success: function() {
+			
+			}
+		});
+		closeDialog();
+		$('#calendar').fullCalendar('refetchEvents');
 	}
 	
   $('#calendar').fullCalendar({
     eventClick: function(calEvent, jsEvent, view) {
-		
-		$('#calendar').fullCalendar( 'changeView', 'agendaDay' );
-		$('#calendar').fullCalendar('gotoDate',calEvent.start);
-		$('#calendar').fullCalendar( 'refetchEvents' );
-		
-		$( "#appointment_form" ).dialog( "open" );
-    },
+		if(view.name == "month"){
+			$('#calendar').fullCalendar( 'changeView', 'agendaDay' );
+			$('#calendar').fullCalendar('gotoDate',calEvent.start);
+			$('#calendar').fullCalendar( 'refetchEvents' );
+		} else{
+			$( "#appointment_form" ).dialog( "open" );
+		}
+	},
     dayClick: function(date, jsEvent, view) {
-
-      if ($('#calendar').fullCalendar( 'getView').name.localeCompare('month') == 0){
-
-        $('#calendar').fullCalendar( 'changeView', 'agendaDay' );
-        $('#calendar').fullCalendar('gotoDate',date);
-        $('#calendar').fullCalendar( 'refetchEvents' );
-
-      }else{
-
-        $('#appt_date').val(date.format("YYYY-MM-DD"));
-        $('#appt_time').val(date.format("hh:mm"));
-        $('#appt_duration').val(30);
-        $( "#appointment_form" ).dialog( "open" );
-      }
+		if(view.name == "month"){
+			$('#calendar').fullCalendar( 'changeView', 'agendaDay' );
+			$('#calendar').fullCalendar('gotoDate',date);
+			$('#calendar').fullCalendar( 'refetchEvents' );
+		}else{
+			$('#appt_date').val(date.format("YYYY-MM-DD"));
+			$('#appt_time').val(date.format("hh:mm"));
+			$('#appt_duration').val(30);
+			$( "#appointment_form" ).dialog( "open" );
+		}
     },
     header: {
       left: 'prev,next today',
