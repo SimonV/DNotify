@@ -26,15 +26,7 @@ class AppointmentsController < ApplicationController
 
       if !date.eql?(apt.start_time.strftime("%Y-%m-%d"))
 
-        resp.push({title: '',
-              start: earliest_time.at_beginning_of_day,
-              allDay: true,
-              rendering: 'background',
-              color: get_color_for_count(count)})
-        resp.push({title: "From: #{earliest_time.strftime("%H:%M")}",
-              start: earliest_time})
-        resp.push({title: "To: #{latest_time.strftime("%H:%M")}",
-              start: latest_time})
+        resp.push(*build_day_summary(earliest_time, latest_time, count))
 
         earliest_time = apt.start_time
         date = apt.start_time.strftime("%Y-%m-%d")
@@ -52,6 +44,7 @@ class AppointmentsController < ApplicationController
     first_date = start.at_beginning_of_day
     last_date = start.at_end_of_day
 
+    #TODO add filtering by doctor
     appts = Appointment.where(:start_time => first_date..last_date)
 
     resp = appts.map do |appt|
@@ -70,6 +63,7 @@ class AppointmentsController < ApplicationController
     first_date = start.at_beginning_of_day
     last_date = start.at_end_of_day
 
+    #TODO add filtering by doctor
     appts = Appointment.where(:start_time => first_date..last_date)
 
     resp = appts.map do |appt|
@@ -85,7 +79,16 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    render json: nil
+
+    #TODO validate busness hours
+    #TODO validate overlaping
+
+    apt = Appointment.create( doctor_id: 1, #TODO change
+                              customer_id: 1, #TODO change
+                              start_time: params[:appt_date],
+                              duration: params[:appt_duration],
+                              description: params[:appt_description])
+    render json: {}
   end
 
   def show
@@ -102,10 +105,28 @@ class AppointmentsController < ApplicationController
   end
 
   def update
+    #TODO validate busness hours
+    #TODO validate overlaping
+
     render json: nil
   end
 
   private
+
+  def build_day_summary(earliest_time, latest_time, count)
+    resp = []
+    resp.push({title: '',
+              start: earliest_time.at_beginning_of_day,
+              allDay: true,
+              rendering: 'background',
+              color: get_color_for_count(count)})
+    resp.push({title: "From: #{earliest_time.strftime("%H:%M")}",
+              start: earliest_time})
+    resp.push({title: "To: #{latest_time.strftime("%H:%M")}",
+              start: latest_time})
+    resp
+  end
+
   def get_color_for_count(count)
     case (count)
       when 0..3
