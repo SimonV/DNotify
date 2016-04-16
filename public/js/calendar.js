@@ -32,7 +32,7 @@ $(document).ready(function() {
 
 	function createAppointment(){
 		if(updateID == -1){
-			var formData = 
+			var formData =
 			{
 				'appt_date' : new Date($('#appt_date').val() + ' ' + $('#appt_time').val()),
 				'appt_duration': $('#appt_duration').val(),
@@ -47,11 +47,11 @@ $(document).ready(function() {
 				type: "POST",
 				data: formData,
 				success: function() {
-				
+
 				}
 			});
 		} else {
-			var formData = 
+			var formData =
 			{
 				'appt_id' : updateID,
 				'appt_date' : new Date($('#appt_date').val() + ' ' + $('#appt_time').val()),
@@ -67,14 +67,14 @@ $(document).ready(function() {
 				type: "POST",
 				data: formData,
 				success: function() {
-					
+
 				}
 			});
 		}
 		closeDialog();
 		$('#calendar').fullCalendar('refetchEvents');
 	}
-	
+
   $('#calendar').fullCalendar({
     eventClick: function(calEvent, jsEvent, view) {
 		if(view.name == "month"){
@@ -126,6 +126,7 @@ $(document).ready(function() {
     },
     minTime: "08:00:00",
     maxTime: "20:00:00",
+    timezone: "local",
     editable: false,
     eventLimit: false, // allow "more" link when too many events
     selectable: false,

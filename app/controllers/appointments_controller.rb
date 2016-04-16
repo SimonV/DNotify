@@ -8,7 +8,10 @@ class AppointmentsController < ApplicationController
   def get_monthly_summaries
     resp = []
 
-    start = Date.parse(params[:start])
+    #start = Date.parse(params[:start])
+    start = Time.parse(params[:start])
+    offset = Time.zone_offset(start.zone)
+
     first_date = start.at_beginning_of_month.next_month
     last_date = start.at_end_of_month.next_month
 
@@ -26,7 +29,7 @@ class AppointmentsController < ApplicationController
 
       if !date.eql?(apt.start_time.strftime("%Y-%m-%d"))
 
-        resp.push(*build_day_summary(earliest_time, latest_time, count))
+        resp.push(*build_day_summary(earliest_time, latest_time, offset, count))
 
         earliest_time = apt.start_time
         date = apt.start_time.strftime("%Y-%m-%d")
@@ -37,7 +40,7 @@ class AppointmentsController < ApplicationController
 
     end
 
-    resp.push(*build_day_summary(earliest_time, latest_time, count))
+    resp.push(*build_day_summary(earliest_time, latest_time, offset, count))
 
     render json: resp
   end
@@ -62,7 +65,8 @@ class AppointmentsController < ApplicationController
   end
 
   def get_daily
-    start = Date.parse(params[:start])
+    #start = Date.parse(params[:start])
+    start = Time.zone.parse(params[:start])
     first_date = start.at_beginning_of_day
     last_date = start.at_end_of_day
 
@@ -116,16 +120,16 @@ class AppointmentsController < ApplicationController
 
   private
 
-  def build_day_summary(earliest_time, latest_time, count)
+  def build_day_summary(earliest_time, latest_time, offset, count)
     resp = []
     resp.push({title: '',
-              start: earliest_time.at_beginning_of_day,
+              start: (earliest_time - offset).at_beginning_of_day,
               allDay: true,
               rendering: 'background',
               color: get_color_for_count(count)})
-    resp.push({title: "From: #{earliest_time.strftime("%H:%M")}",
+    resp.push({title: "From: #{(earliest_time + offset).strftime("%H:%M")}",
               start: earliest_time})
-    resp.push({title: "To: #{latest_time.strftime("%H:%M")}",
+    resp.push({title: "To: #{(latest_time + offset).strftime("%H:%M")}",
               start: latest_time})
     resp
   end
