@@ -82,10 +82,14 @@ $(document).ready(function() {
 			$('#calendar').fullCalendar('gotoDate',calEvent.start);
 			$('#calendar').fullCalendar( 'refetchEvents' );
 		} else{
+      var formData =
+      {
+        'appt_id' : calEvent.id
+      }
 			$.ajax({
 				url: 'appointments/show',
 				type: "POST",
-				data: calEvent.id,
+				data: formData,
 				success: function(data) {
 					var json = $.parseJSON(data);
 					updateID = calEvent.id
