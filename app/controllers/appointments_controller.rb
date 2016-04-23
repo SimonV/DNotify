@@ -22,26 +22,24 @@ class AppointmentsController < ApplicationController
       date = appts[0].start_time.strftime("%Y-%m-%d")
       earliest_time = appts[0].start_time
       latest_time = appts[0].start_time
-    end
 
-    appts.each do |apt|
-      count += 1
+      appts.each do |apt|
+        count += 1
 
-      if !date.eql?(apt.start_time.strftime("%Y-%m-%d"))
+        if !date.eql?(apt.start_time.strftime("%Y-%m-%d"))
+          resp.push(*build_day_summary(earliest_time, latest_time, offset, count))
 
-        resp.push(*build_day_summary(earliest_time, latest_time, offset, count))
+          earliest_time = apt.start_time
+          date = apt.start_time.strftime("%Y-%m-%d")
+          count = 1
+        end
 
-        earliest_time = apt.start_time
-        date = apt.start_time.strftime("%Y-%m-%d")
-        count = 1
+        latest_time = apt.start_time
       end
 
-      latest_time = apt.start_time
+      resp.push(*build_day_summary(earliest_time, latest_time, offset, count))
 
     end
-
-    resp.push(*build_day_summary(earliest_time, latest_time, offset, count))
-
     render json: resp
   end
 
