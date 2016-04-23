@@ -31,7 +31,7 @@ $(document).ready(function() {
 	}
 
 	function createAppointment(){
-		if(updateID == -1){
+		if(updateID != -1){
 			var formData =
 			{
 				'appt_date' : new Date($('#appt_date').val() + ' ' + $('#appt_time').val()),
@@ -82,13 +82,18 @@ $(document).ready(function() {
 			$('#calendar').fullCalendar('gotoDate',calEvent.start);
 			$('#calendar').fullCalendar( 'refetchEvents' );
 		} else{
+            var formData =
+			{
+                "appt_id" : calEvent.id
+            };
+            $('#appt_id').val(calEvent.id);
 			$.ajax({
 				url: 'appointments/show',
 				type: "POST",
-				data: calEvent.id,
+				data: formData,
 				success: function(data) {
 					var json = $.parseJSON(data);
-					updateID = calEvent.id
+					$('#appt_id').val(calEvent.id);
 					$('#appt_date').val(json[0].appt_date.format("YYYY-MM-DD"));
 					$('#appt_time').val(json[0].appt_date.format("hh:mm"));
 					$('#appt_duration').val(json[0].appt_duration);

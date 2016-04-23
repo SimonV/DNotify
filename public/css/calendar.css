@@ -18,7 +18,9 @@ body {
 
 #appointment .form_row{
 	display: inline-block;
-
+}
+#appt_id{
+    visibility: none;
 }
 
 #appointment label{
