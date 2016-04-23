@@ -87,7 +87,6 @@ class AppointmentsController < ApplicationController
 
     #TODO validate busness hours
     #TODO validate overlaping
-
     apt = Appointment.create( doctor_id: 1, #TODO change
                               customer_id: 1, #TODO change
                               start_time: params[:appt_date],
@@ -97,23 +96,25 @@ class AppointmentsController < ApplicationController
   end
 
   def show
-
-    json = "{ 'id': 123,
-              'appt_time': '2016-04-14T06:56:08.324Z',
-              'appt_duration': '30',
-              'appt_description': 'sadfas',
-              'appt_customer_name': '',
-              'appt_customer_last_name': '',
-              'appt_customer_phone': '',
-              'appt_customer_email': ''}"
-    render json: json
+    apt = Appointment.find(params[:id])
+    # json = "{ 'id': 123,
+    #           'appt_time': '2016-04-14T06:56:08.324Z',
+    #           'appt_duration': '30',
+    #           'appt_description': 'sadfas',
+    #           'appt_customer_name': '',
+    #           'appt_customer_last_name': '',
+    #           'appt_customer_phone': '',
+    #           'appt_customer_email': ''}"
+    render json: apt.to_json
   end
 
   def update
     #TODO validate busness hours
     #TODO validate overlaping
-
-    render json: nil
+    apt = Appointment.update(params[:id], { start_time: params[:appt_date],
+                                            duration: params[:appt_duration],
+                                            description: params[:appt_description]})
+    render json: {}
   end
 
   private
