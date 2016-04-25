@@ -16,7 +16,6 @@ $(document).ready(function() {
       closeDialog();
     }
   });
-	var isUpdating = -1;
 	function closeDialog(){
 		$( "#appointment_form" ).dialog( "close" );
 		$('#appt_date').val('');
@@ -27,12 +26,10 @@ $(document).ready(function() {
 		$('#appt_customer_last_name').val('');
 		$('#appt_customer_phone').val('');
 		$('#appt_customer_email').val('');
-		updateID = -1;
 	}
 
 	function createAppointment(){
-		if(updateID != -1){
-			var formData =
+		var formData =
 			{
 				'appt_date' : new Date($('#appt_date').val() + ' ' + $('#appt_time').val()),
 				'appt_duration': $('#appt_duration').val(),
@@ -42,32 +39,23 @@ $(document).ready(function() {
 				'appt_customer_phone': $('#appt_customer_phone').val(),
 				'appt_customer_email': $('#appt_customer_email').val()
 			};
+		if($('#appt_id').val().length == 0){			
 			$.ajax({
 				url: 'appointments/create',
 				type: "POST",
 				data: formData,
 				success: function() {
-
+					//create was successful
 				}
 			});
 		} else {
-			var formData =
-			{
-				'appt_id' : updateID,
-				'appt_date' : new Date($('#appt_date').val() + ' ' + $('#appt_time').val()),
-				'appt_duration': $('#appt_duration').val(),
-				'appt_description': $('#appt_description').val(),
-				'appt_customer_name': $('#appt_customer_name').val(),
-				'appt_customer_last_name': $('#appt_customer_last_name').val(),
-				'appt_customer_phone': $('#appt_customer_phone').val(),
-				'appt_customer_email': $('#appt_customer_email').val()
-			};
+			formData.appt_id = $('#appt_id').val();
 			$.ajax({
 				url: 'appointments/update',
 				type: "POST",
 				data: formData,
 				success: function() {
-
+					//update was successful
 				}
 			});
 		}
@@ -95,7 +83,7 @@ $(document).ready(function() {
 					var json = $.parseJSON(data);
 					$('#appt_id').val(calEvent.id);
 					$('#appt_date').val(json[0].appt_date.format("YYYY-MM-DD"));
-					$('#appt_time').val(json[0].appt_date.format("hh:mm"));
+					$('#appt_time').val(json[0].appt_date.format("hh:mm tt"));
 					$('#appt_duration').val(json[0].appt_duration);
 					$('#appt_description').val(json[0].appt_description);
 					$('#appt_customer_name').val(json[0].appt_customer_name);
@@ -114,7 +102,7 @@ $(document).ready(function() {
 			$('#calendar').fullCalendar( 'refetchEvents' );
 		}else{
 			$('#appt_date').val(date.format("YYYY-MM-DD"));
-			$('#appt_time').val(date.format("hh:mm"));
+			$('#appt_time').val(date.format("hh:mm tt"));
 			$('#appt_duration').val(30);
 			$( "#appointment_form" ).dialog( "open" );
 		}

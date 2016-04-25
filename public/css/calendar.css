@@ -20,7 +20,7 @@ body {
 	display: inline-block;
 }
 #appt_id{
-    visibility: none;
+    display: none;
 }
 
 #appointment label{
