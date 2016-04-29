@@ -8,7 +8,6 @@ class AppointmentsController < ApplicationController
   def get_monthly_summaries
     resp = []
 
-    #start = Date.parse(params[:start])
     start = Time.parse(params[:start])
     offset = Time.zone_offset(start.zone)
 
@@ -63,7 +62,6 @@ class AppointmentsController < ApplicationController
   end
 
   def get_daily
-    #start = Date.parse(params[:start])
     start = Time.zone.parse(params[:start])
     first_date = start.at_beginning_of_day
     last_date = start.at_end_of_day
@@ -117,6 +115,12 @@ class AppointmentsController < ApplicationController
     apt = Appointment.update(params[:appt_id], { start_time: params[:appt_date],
                                             duration: params[:appt_duration],
                                             description: params[:appt_description]})
+    render json: {}
+  end
+
+  def cancel
+    #TODO track stats?
+    Appointment.destroy(params[:appt_id])
     render json: {}
   end
 
