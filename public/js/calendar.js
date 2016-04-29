@@ -102,7 +102,7 @@ $(document).ready(function() {
 			$('#calendar').fullCalendar( 'refetchEvents' );
 		}else{
 			$('#appt_date').val(date.format("YYYY-MM-DD"));
-			$('#appt_time').val(date.format("hh:mm tt"));
+			$('#appt_time').val(date.format("HH:mm"));
 			$('#appt_duration').val(30);
 			$( "#appointment_form" ).dialog( "open" );
 		}
