@@ -114,7 +114,7 @@ class AppointmentsController < ApplicationController
   def update
     #TODO validate busness hours
     #TODO validate overlaping
-    apt = Appointment.update(params[:id], { start_time: params[:appt_date],
+    apt = Appointment.update(params[:appt_id], { start_time: params[:appt_date],
                                             duration: params[:appt_duration],
                                             description: params[:appt_description]})
     render json: {}
