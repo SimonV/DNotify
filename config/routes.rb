@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   post 'appointments/get_daily'
   post 'appointments/create'
   post 'appointments/update'
+  post 'appointments/cancel'
 
   get 'doctors/activate'
 
