@@ -71,7 +71,7 @@ $(document).ready(function() {
 				'appt_customer_phone': $('#appt_customer_phone').val(),
 				'appt_customer_email': $('#appt_customer_email').val()
 			};
-		if($('#appt_id').val().length == 0){			
+		if($('#appt_id').val().length == 0){
 			$.ajax({
 				url: 'appointments/create',
 				type: "POST",
@@ -102,7 +102,7 @@ $(document).ready(function() {
 					'appt_id' : $('#appt_id').val()
 				};
 			$.ajax({
-				url: 'appointments/delete',
+				url: 'appointments/cancel',
 				type: "POST",
 				data: formData,
 				success: function() {
@@ -131,16 +131,16 @@ $(document).ready(function() {
 				type: "POST",
 				data: formData,
 				success: function(data) {
-					var json = $.parseJSON(data);
-					$('#appt_id').val(calEvent.id);
-					$('#appt_date').val(json[0].appt_date.format("YYYY-MM-DD"));
-					$('#appt_time').val(json[0].appt_date.format("HH:mm"));
-					$('#appt_duration').val(json[0].appt_duration);
-					$('#appt_description').val(json[0].appt_description);
-					$('#appt_customer_name').val(json[0].appt_customer_name);
-					$('#appt_customer_last_name').val(json[0].appt_customer_last_name);
-					$('#appt_customer_phone').val(json[0].appt_customer_phone);
-					$('#appt_customer_email').val(json[0].appt_customer_email);
+					$('#appt_id').val(data.appt_id);
+					var m = this.moment(data.appt_time);
+					$('#appt_date').val(m.format("YYYY-MM-DD"));
+					$('#appt_time').val(m.format("HH:mm"));
+					$('#appt_duration').val(data.appt_duration);
+					$('#appt_description').val(data.appt_description);
+					$('#appt_customer_name').val(data.appt_customer_name);
+					$('#appt_customer_last_name').val(data.appt_customer_last_name);
+					$('#appt_customer_phone').val(data.appt_customer_phone);
+					$('#appt_customer_email').val(data.appt_customer_email);
 				}
 			});
 			$('.delete_button').css("display", "inline-block");

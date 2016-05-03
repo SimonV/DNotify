@@ -8,7 +8,6 @@ class AppointmentsController < ApplicationController
   def get_monthly_summaries
     resp = []
 
-    #start = Date.parse(params[:start])
     start = Time.parse(params[:start])
     offset = Time.zone_offset(start.zone)
 
@@ -63,7 +62,6 @@ class AppointmentsController < ApplicationController
   end
 
   def get_daily
-    #start = Date.parse(params[:start])
     start = Time.zone.parse(params[:start])
     first_date = start.at_beginning_of_day
     last_date = start.at_end_of_day
@@ -96,24 +94,33 @@ class AppointmentsController < ApplicationController
   end
 
   def show
-    apt = Appointment.find(params[:id])
-    # json = "{ 'id': 123,
-    #           'appt_time': '2016-04-14T06:56:08.324Z',
-    #           'appt_duration': '30',
-    #           'appt_description': 'sadfas',
-    #           'appt_customer_name': '',
-    #           'appt_customer_last_name': '',
-    #           'appt_customer_phone': '',
-    #           'appt_customer_email': ''}"
-    render json: apt.to_json
+    apt = Appointment.find(params[:appt_id])
+
+    resp = {}
+    resp[:appt_id] = apt.id
+    resp[:appt_time] = apt.start_time
+    resp[:appt_duration] = apt.duration
+    resp[:appt_description] = apt.description
+    resp[:appt_customer_name] = apt.customer.name
+    resp[:appt_customer_last_name] = apt.customer.last_name
+    resp[:appt_customer_phone] = apt.customer.phone
+    resp[:appt_customer_email] = apt.customer.email
+
+    render json: resp.to_json
   end
 
   def update
     #TODO validate busness hours
     #TODO validate overlaping
-    apt = Appointment.update(params[:id], { start_time: params[:appt_date],
+    apt = Appointment.update(params[:appt_id], { start_time: params[:appt_date],
                                             duration: params[:appt_duration],
                                             description: params[:appt_description]})
+    render json: {}
+  end
+
+  def cancel
+    #TODO track stats?
+    Appointment.destroy(params[:appt_id])
     render json: {}
   end
 
