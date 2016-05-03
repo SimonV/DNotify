@@ -1,23 +1,54 @@
 
 $(document).ready(function() {
-  var dialog;
-  dialog = $( "#appointment_form" ).dialog({
-    autoOpen: false,
-    height: 600,
-    width: 400,
-    modal: true,
-    buttons: [{
-      text: "Send",
-      click: function() {
-        createAppointment();
-      }
-    }],
-    close: function() {
-      closeDialog();
-    }
-  });
+	var dialog;
+	dialog = $("#appointment_form").dialog({
+		autoOpen: false,
+		height: 600,
+		width: 400,
+		modal: true,
+		buttons: [{
+			text: "Send",
+			"class":'send_button',
+			click: function() {
+				createAppointment();
+			}
+		},
+			{
+			text: "Delete",
+			"class":'delete_button',
+			click: function() {
+				$("#dialog_confirm").dialog( "open" );
+			}
+		}],
+		close: function() {
+			closeDialog();
+		}
+	});
+  
+  	var dialog_alert;
+	dialog_alert = $("#dialog_confirm").dialog({
+		autoOpen: false,
+		modal: true,
+		buttons: [{
+			text: "Delete event",
+			click: function() {
+				$("#dialog_confirm").dialog( "close" );
+				deleteAppointment();
+			}
+		},
+			{
+			text: "Cancel",
+			click: function() {
+				$("#dialog_confirm").dialog( "close" );
+			}
+		}],
+		close: function() {
+			$("#dialog_confirm").dialog( "close" );
+		}
+	});
+  
 	function closeDialog(){
-		$( "#appointment_form" ).dialog( "close" );
+		$("#appointment_form").dialog( "close" );
 		$('#appt_date').val('');
 		$('#appt_time').val('');
 		$('#appt_duration').val('');
@@ -26,6 +57,7 @@ $(document).ready(function() {
 		$('#appt_customer_last_name').val('');
 		$('#appt_customer_phone').val('');
 		$('#appt_customer_email').val('');
+		$('.delete_button').css("display", "none");
 	}
 
 	function createAppointment(){
@@ -63,6 +95,25 @@ $(document).ready(function() {
 		$('#calendar').fullCalendar('refetchEvents');
 	}
 
+	function deleteAppointment(){
+		if($('#appt_id').val().length != 0){
+			var formData =
+				{
+					'appt_id' : $('#appt_id').val()
+				};
+			$.ajax({
+				url: 'appointments/delete',
+				type: "POST",
+				data: formData,
+				success: function() {
+					//delete was successful
+				}
+			});
+		}
+		closeDialog();
+		$('#calendar').fullCalendar('refetchEvents');
+	}
+
   $('#calendar').fullCalendar({
     eventClick: function(calEvent, jsEvent, view) {
 		if(view.name == "month"){
@@ -83,7 +134,7 @@ $(document).ready(function() {
 					var json = $.parseJSON(data);
 					$('#appt_id').val(calEvent.id);
 					$('#appt_date').val(json[0].appt_date.format("YYYY-MM-DD"));
-					$('#appt_time').val(json[0].appt_date.format("hh:mm tt"));
+					$('#appt_time').val(json[0].appt_date.format("HH:mm"));
 					$('#appt_duration').val(json[0].appt_duration);
 					$('#appt_description').val(json[0].appt_description);
 					$('#appt_customer_name').val(json[0].appt_customer_name);
@@ -92,7 +143,8 @@ $(document).ready(function() {
 					$('#appt_customer_email').val(json[0].appt_customer_email);
 				}
 			});
-			$( "#appointment_form" ).dialog( "open" );
+			$('.delete_button').css("display", "inline-block");
+			$("#appointment_form").dialog( "open" );
 		}
 	},
     dayClick: function(date, jsEvent, view) {
@@ -102,9 +154,9 @@ $(document).ready(function() {
 			$('#calendar').fullCalendar( 'refetchEvents' );
 		}else{
 			$('#appt_date').val(date.format("YYYY-MM-DD"));
-			$('#appt_time').val(date.format("hh:mm tt"));
+			$('#appt_time').val(date.format("HH:mm"));
 			$('#appt_duration').val(30);
-			$( "#appointment_form" ).dialog( "open" );
+			$("#appointment_form").dialog( "open" );
 		}
     },
     header: {

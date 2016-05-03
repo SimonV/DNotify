@@ -1,47 +1,51 @@
-span.fc-time {
-  display: none;
-}
-
+span.fc-time { display: none; }
 body {
-  margin: 40px 10px;
-  padding: 0;
-  font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-  font-size: 14px;
+	margin: 40px 10px;
+	padding: 0;
+	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+	font-size: 14px;
 }
-
 #calendar {
-  max-width: 900px;
-  margin: 0 auto;
+	max-width: 900px;
+	margin: 0 auto;
 }
-
 /* form styling */
-
-#appointment .form_row{
-	display: inline-block;
+#appointment .form_row { display: inline-block; }
+#appt_id { display: none; }
+#appointment label {
+	float: left;
+	width: 120px;
+	font-weight: bold;
 }
-#appt_id{
-    display: none;
+#appointment input {
+	width: 180px;
+	margin-bottom: 5px;
 }
-
-#appointment label{
-float: left;
-width: 120px;
-font-weight: bold;
+#appointment textarea {
+	width: 250px;
+	height: 150px;
+	margin-bottom: 5px;
 }
-
-#appointment input{
-width: 180px;
-margin-bottom: 5px;
+#appointment #submitbutton {
+	margin-left: 120px;
+	margin-top: 5px;
+	width: 90px;
 }
-
-#appointment textarea{
-width: 250px;
-height: 150px;
-margin-bottom: 5px;
+/* JQuery UI style */
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+   float: none;
 }
-
-#appointment #submitbutton{
-margin-left: 120px;
-margin-top: 5px;
-width: 90px;
+.ui-dialog .ui-dialog-buttonpane button{
+	margin: .5em .4em;	
+}
+.send_button{
+	float: left;
+}
+.delete_button{
+	display: none;
+	float: right;	
+}
+.delete_alert{
+	float:left; 
+	margin:0 7px 20px 0;
 }
