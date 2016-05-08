@@ -7,18 +7,15 @@ Rails.application.routes.draw do
 
   get 'reminders/delete'
 
-  get 'customers/new'
-
-  get 'customers/create'
-
-  get 'customers/activate'
-
-  get 'customers/update'
-
-  get 'customers/list'
+  post 'customers/show'
+  post 'customers/create'
+  post 'customers/activate'
+  post 'customers/update'
+  post 'customers/find'
 
   post 'appointments/get_monthly_summaries'
   post 'appointments/get_daily_free_slots'
+  post 'appointments/get_appointments_for_customer'
   post 'appointments/show'
   post 'appointments/get_daily'
   post 'appointments/create'

@@ -81,6 +81,23 @@ class AppointmentsController < ApplicationController
     render json: resp
   end
 
+  def get_appointments_for_customer
+    #TODO filter by doctor
+    #TODO limit latest x appts?
+    appts = Appointment.where(customer_id: params[:customer_id])
+
+    resp = appts.map do |appt|
+        {
+          title: appt.description,
+          start: appt.start_time,
+          id: appt.id,
+          end: appt.start_time + appt.duration.minutes
+        }
+    end
+
+    render json: resp
+  end
+
   def create
 
     #TODO validate busness hours
