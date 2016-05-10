@@ -132,9 +132,8 @@ $(document).ready(function() {
 				data: formData,
 				success: function(data) {
 					$('#appt_id').val(data.appt_id);
-					var m = this.moment(data.appt_time);
-					$('#appt_date').val(m.format("YYYY-MM-DD"));
-					$('#appt_time').val(m.format("HH:mm"));
+					$('#appt_date').val(data.appt_date.format("YYYY-MM-DD"));
+					$('#appt_time').val(data.appt_date.format("HH:mm"));
 					$('#appt_duration').val(data.appt_duration);
 					$('#appt_description').val(data.appt_description);
 					$('#appt_customer_name').val(data.appt_customer_name);
