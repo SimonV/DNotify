@@ -11,6 +11,10 @@ body {
 }
 /* form styling */
 #appointment .form_row { display: inline-block; }
+#errors {
+	display: none;
+	color: red;
+}
 #appt_id { display: none; }
 #appointment label {
 	float: left;
@@ -32,20 +36,14 @@ body {
 	width: 90px;
 }
 /* JQuery UI style */
-.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
-   float: none;
-}
-.ui-dialog .ui-dialog-buttonpane button{
-	margin: .5em .4em;	
-}
-.send_button{
-	float: left;
-}
-.delete_button{
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float: none; }
+.ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em; }
+.send_button { float: left; }
+.delete_button {
 	display: none;
-	float: right;	
+	float: right;
 }
-.delete_alert{
-	float:left; 
-	margin:0 7px 20px 0;
+.delete_alert {
+	float: left;
+	margin: 0 7px 20px 0;
 }

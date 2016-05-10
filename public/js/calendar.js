@@ -58,6 +58,8 @@ $(document).ready(function() {
 		$('#appt_customer_phone').val('');
 		$('#appt_customer_email').val('');
 		$('.delete_button').css("display", "none");
+		$('#errors').html("");
+		$('#errors').css("display", "none");
 	}
 
 	function createAppointment(){
@@ -71,28 +73,46 @@ $(document).ready(function() {
 				'appt_customer_phone': $('#appt_customer_phone').val(),
 				'appt_customer_email': $('#appt_customer_email').val()
 			};
-		if($('#appt_id').val().length == 0){
-			$.ajax({
-				url: 'appointments/create',
-				type: "POST",
-				data: formData,
-				success: function() {
-					//create was successful
+		$.ajax({
+			url: 'appointments/find',
+			type: "POST",
+			data: formData,
+			success: function(data) {
+				/*idea:
+					first I send the data to the server in order to check if such date is not taken by another appt_id (server side logic)
+					I get a response, for example if it's taken I'd be expecting to receive  a string "taken",
+					if the response string is no equals to "taken" I will then proceed to create/update as needed
+					otherwise, an error will be displayed indicating that such date is already taken.
+				*/
+				if(data != "taken"){
+					if($('#appt_id').val().length == 0){
+						$.ajax({
+							url: 'appointments/create',
+							type: "POST",
+							data: formData,
+							success: function() {
+								//assuming the server check if an event is already created on 1 date, it will return -1
+							}
+						});
+					} else {
+						formData.appt_id = $('#appt_id').val();
+						$.ajax({
+							url: 'appointments/update',
+							type: "POST",
+							data: formData,
+							success: function() {
+								//update was successful
+							}
+						});
+					}
+					closeDialog();
+					$('#calendar').fullCalendar('refetchEvents');
+				} else{
+					$('#errors').html("Such date is already taken, please try another date");
+					$('#errors').css("display", "inline-block");
 				}
-			});
-		} else {
-			formData.appt_id = $('#appt_id').val();
-			$.ajax({
-				url: 'appointments/update',
-				type: "POST",
-				data: formData,
-				success: function() {
-					//update was successful
-				}
-			});
-		}
-		closeDialog();
-		$('#calendar').fullCalendar('refetchEvents');
+			}
+		});	
 	}
 
 	function deleteAppointment(){
