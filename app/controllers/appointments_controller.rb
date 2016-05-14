@@ -11,8 +11,8 @@ class AppointmentsController < ApplicationController
     start = Time.parse(params[:start])
     offset = Time.zone_offset(start.zone)
 
-    first_date = start.at_beginning_of_month.next_month
-    last_date = start.at_end_of_month.next_month
+    first_date = start.at_beginning_of_month
+    last_date = start.at_end_of_month
 
     appts = Appointment.where(start_time: first_date..last_date).order('start_time')
 
