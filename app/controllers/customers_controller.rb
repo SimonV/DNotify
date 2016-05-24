@@ -13,7 +13,8 @@ class CustomersController < ApplicationController
 
   def find
     # TODO limit by doctor/account
-    render json: {}
+    customers = Customer.find_all()
+    render json: customers
   end
 
   def show
