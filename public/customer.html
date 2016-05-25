@@ -8,40 +8,60 @@
 <link href='../css/customer.css' rel='stylesheet' />
 </head>
 <body>
-  <label>Find customers:</label>
-  <input type="text" id="search_test">
-  <button type="button">Search</button>
-
-  <table id="search_results">
-    <tr><td customer_id="id_1">Name 1</td></tr>
-    <tr><td customer_id="id_2">Name 2</td></tr>
-    <tr><td customer_id="id_3">Name 3</td></tr>
-    <tr><td customer_id="id_4">Name 4</td></tr>
-    <tr><td customer_id="id_5">Name 5</td></tr>
-    <tr><td customer_id="id_6">Name 6</td></tr>
-  </table>
-
-  <div id="customer_data">
-
-    <label>Name</label>
-    <input type="text" id="customer_name">
-
-    <label>Last Name</label>
-    <input type="text" id="customer_last_name">
-
-    <label>Email</label>
-    <input type="text" id="customer_email">
-
-    <label>Phone</label>
-    <input type="text" id="customer_phone">
-
-    <button type="button">Update user</button>
-    <!-- selected customer appointments -->
-    <table>
-      <tr><td customer_id="id_1" appt_id="123">2016/05/10 10:00</td></tr>
-      <tr><td customer_id="id_1" appt_id="124">2016/05/10 11:00</td></tr>
-      <tr><td customer_id="id_1" appt_id="125">2016/05/10 12:00</td></tr>
-      <tr><td customer_id="id_1" appt_id="126">2016/05/10 13:00</td></tr>
-    </table>
-  </div>
+<label>Find customers:</label>
+<input type="text" id="search_input">
+<button id="searchBtn" type="button">Search</button>
+<div id="search_results_wrapper">
+	<table id="search_results">
+		<tr>
+			<td data-customer_id="id_1">Name 1</td>
+		</tr>
+		<tr>
+			<td data-customer_id="id_2">Name 2</td>
+		</tr>
+		<tr>
+			<td data-customer_id="id_3">Name 3</td>
+		</tr>
+		<tr>
+			<td data-customer_id="id_4">Name 4</td>
+		</tr>
+		<tr>
+			<td data-customer_id="id_5">Name 5</td>
+		</tr>
+		<tr>
+			<td data-customer_id="id_6">Name 6</td>
+		</tr>
+	</table>
+</div>
+<div id="customer_data">
+	<div id="form_id">
+		<input id="appt_id">
+	</div>
+	<label>Name</label>
+	<input type="text" id="customer_name">
+	<label>Last Name</label>
+	<input type="text" id="customer_last_name">
+	<label>Email</label>
+	<input type="text" id="customer_email">
+	<label>Phone</label>
+	<input type="text" id="customer_phone">
+	<button id="updateBtn" type="button">Update user</button>
+	<!-- selected customer appointments -->
+	<div id="customer_appointments">
+		<table>
+			<tr>
+				<td customer_id="id_1" data-appt_id="123">2016/05/10 10:00</td>
+			</tr>
+			<tr>
+				<td customer_id="id_1" data-appt_id="124">2016/05/10 11:00</td>
+			</tr>
+			<tr>
+				<td customer_id="id_1" data-appt_id="125">2016/05/10 12:00</td>
+			</tr>
+			<tr>
+				<td customer_id="id_1" data-appt_id="126">2016/05/10 13:00</td>
+			</tr>
+		</table>
+	</div>
+</div>
 </body>
