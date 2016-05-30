@@ -51,7 +51,7 @@ function showCustomer(id){
       };
 
   $.ajax({
-	url: "customer/update",
+	url: "customers/show",
 	type: "POST",
 	data: formData,
 	success: function(data) {
@@ -74,7 +74,7 @@ function updateCustomer(id, data){
   };
 
   $.ajax({
-	url: "customer/getCustomer",
+	url: "customers/update",
 	type: "POST",
 	data: formData,
 	success: function() {
