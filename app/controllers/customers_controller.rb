@@ -13,7 +13,8 @@ class CustomersController < ApplicationController
 
   def find
     # TODO limit by doctor/account
-    customers = Customer.find_all()
+    term = params[:search_input]
+    customers = Customer.where('name LIKE ? or last_name LIKE ? or phone LIKE ? or email LIKE ?', term, term, term, term)
     render json: customers
   end
 

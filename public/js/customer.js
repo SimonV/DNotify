@@ -2,7 +2,7 @@
 $(document).ready(function() {
 	$("#searchBtn").click(function(){
 		searchForCustomers(
-			$("#search_input").val()	
+			$("#search_input").val()
 		);
 	});
 	$("#search_results_wrapper").on("click", "tr", function() {
@@ -29,9 +29,9 @@ function searchForCustomers(searchString){
       {
         "search_input": searchString
       };
-	  
+
   $.ajax({
-	url: "customer/searchForCustomers",
+	url: "customers/find",
 	type: "POST",
 	data: formData,
 	success: function(data) {
@@ -49,7 +49,7 @@ function showCustomer(id){
       {
         "customer_id": id
       };
-	  
+
   $.ajax({
 	url: "customer/update",
 	type: "POST",
@@ -72,7 +72,7 @@ function updateCustomer(id, data){
 	"customer_id": id,
 	"customer_details" : data
   };
-  
+
   $.ajax({
 	url: "customer/getCustomer",
 	type: "POST",
