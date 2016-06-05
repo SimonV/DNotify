@@ -29,15 +29,33 @@ function searchForCustomers(searchString){
       {
         "search_input": searchString
       };
-
+  
   $.ajax({
 	url: "customers/find",
 	type: "POST",
 	data: formData,
 	success: function(data) {
-	  //expecting server to return wethere a json or a ready html table with values
-	  //incase server returns a table do not edit next line of code and remove those 2 comments
-	  $("#search_results").html(data);
+		
+		/* still considering wether to show the table title row on html load or only after the user clicked the search button with a value
+		  var rowTitle = $("<tr />");
+			$("#search_results").append(rowTitle); 
+			rowTitle.append("<th>Name</th>");
+			rowTitle.append("<th>Last Name</th>");
+			rowTitle.append("<th>Email</th>");
+			rowTitle.append("<th>Phone</th>");
+		  */
+		
+		for (var i = 0; i < data.length; i++) {
+			var row = $("<tr />");
+			$("#search_results").append(row); 
+			row.append("<td data-customer_id=" + data.customer_id + ">" + data.customer_name + "</td>");
+			row.append("<td>" + data.customer_last_name + "</td>");
+			row.append("<td>" + data.customer_email + "</td>");
+			row.append("<td>" + data.customer_phone + "</td>");
+		}
+	},
+	error: function() {
+		alert("Failed to communicate with server");
 	}
   });
 }
@@ -60,6 +78,9 @@ function showCustomer(id){
 	  $("#customer_data > #customer_last_name").val(data.customer_last_name);
 	  $("#customer_data > #customer_email").val(data.customer_email);
 	  $("#customer_data > #customer_phone").val(data.customer_phone);
+	},
+	error: function() {
+		alert("Failed to communicate with server");
 	}
   });
 }
@@ -79,6 +100,9 @@ function updateCustomer(id, data){
 	data: formData,
 	success: function() {
 		//update was successful
+	},
+	error: function() {
+		alert("Failed to communicate with server");
 	}
   });
 }
